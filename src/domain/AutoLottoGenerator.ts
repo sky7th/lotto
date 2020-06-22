@@ -16,6 +16,6 @@ export default class AutoLottoGenerator {
           lottoNumbers.push(randomLottoNumber);
         }
     }
-    return lottoNumbers.sort().map(lottoNumber => new LottoNumber(lottoNumber));
+    return lottoNumbers.sort().map(lottoNumber => LottoNumber.of(lottoNumber));
   }
 }
