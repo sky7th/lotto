@@ -3,8 +3,8 @@ import LottoNumberGreaterThanMinError from "../error/LottoNumberGreaterThanMinEr
 
 export default class LottoNumber {
 
-  public static readonly MIN = 1;
-  public static readonly MAX = 45;
+  public static readonly MIN: number = 1;
+  public static readonly MAX: number = 45;
 
   private _number: number;
 
@@ -12,11 +12,11 @@ export default class LottoNumber {
     this._number = number;
   }
 
-  public static of(number: number) {
+  static of(number: number) {
     if (number < LottoNumber.MIN) {
       throw new LottoNumberLessThanMinError(number);
     }
-    if (number < LottoNumber.MAX) {
+    if (number > LottoNumber.MAX) {
       throw new LottoNumberGreaterThanMinError(number);
     }
 

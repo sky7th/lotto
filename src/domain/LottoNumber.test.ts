@@ -7,7 +7,7 @@ describe('LottoNumber 객체', () => {
   });
 
   it(`로또 숫자가 최대 범위 ${LottoNumber.MAX}보다 크면 예외가 발생한다.`, () => {
-    const errorProneFunc = () => LottoNumber.of(0);
+    const errorProneFunc = () => LottoNumber.of(46);
     expect(errorProneFunc).toThrow(expect.objectContaining({ name: 'LottoNumberGreaterThanMinError'}));
   });
 });
