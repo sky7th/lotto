@@ -8,7 +8,7 @@ export default class Lotto {
   private _lottoNumbers: LottoNumber[];
   private _lottoType: LottoType;
 
-  constructor(lottoNumbers: LottoNumber[], lottoType: LottoType) {
+  constructor(lottoNumbers: LottoNumber[], lottoType: LottoType = LottoType.AUTO) {
     this._lottoNumbers = lottoNumbers;
     this._lottoType = lottoType;
   }

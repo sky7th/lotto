@@ -3,9 +3,11 @@ import { useState } from 'preact/hooks';
 import Lotto from '../domain/Lotto';
 import LottoGeneratingMachine from '../domain/LottoGeneratingMachine';
 import ManualLottoTicket from '../domain/ManualLottoTicket';
+import LottoNumbersInput from './LottoNumbersInput';
+import { LottoType } from '../domain/LottoType';
+import LottoNumberUtils from '../utils/LottoNumberUtils';
 
 const LottoStore = (props: { lottos: Lotto[], setLottos: Function }) => {
-  const TOTAL_LOTTO_NUMBER = 6;
 
   const [lottoAmount, setlottoAmount] = useState(0);
   const [doneSettingLottoAmount, setDoneSettingLottoAmount] = useState(false);
@@ -32,8 +34,13 @@ const LottoStore = (props: { lottos: Lotto[], setLottos: Function }) => {
 
   const handleClickManualLottoInputsBtn = (e: any): void => {
     e.preventDefault();
-    props.setLottos(generateLottos(getLottoNumbersFromInputs()));
-    // setDoneManualLottoNumbersList(true);
+    const manualLottoNumbersListFromInputs = getManualLottoNumbersListFromInputs();
+    props.setLottos(generateLottos(manualLottoNumbersListFromInputs));
+  }
+
+  const getManualLottoNumbersListFromInputs = (): any[][] => {
+    return [...Array(Number(manualLottoAmount))].map((n, index) =>
+      LottoNumberUtils.getLottoNumbersFromInputs(`input[name=lottoNumber${index + 1}]`))
   }
 
   const generateLottos = (manualLottoNumbersList: number[][]) => {
@@ -41,15 +48,6 @@ const LottoStore = (props: { lottos: Lotto[], setLottos: Function }) => {
     const autoLottoAmount = lottoAmount - manualLottoAmount;
 
     return LottoGeneratingMachine.generate(autoLottoAmount, manualLottoTicket);
-  }
-
-  const getLottoNumbersFromInputs = (): any[][] => {
-    return [...Array(Number(manualLottoAmount))].map((n, index) => {
-      const lottoNumberElements = document.querySelectorAll(`input[name=lottoNumber${index + 1}]`);
-      
-      return [].filter.call(lottoNumberElements, ((element: HTMLInputElement) => element.value !== ''))
-        .map((element: HTMLInputElement) => element.value);
-    })
   }
 
   return (
@@ -73,10 +71,7 @@ const LottoStore = (props: { lottos: Lotto[], setLottos: Function }) => {
         <div>수동으로 구매할 번호를 입력해주세요.</div>
         {[...new Array(Number(manualLottoAmount))].map((n, index) =>
           <div>
-            <label for={`lottoNumber${index + 1}`}>수동 {index + 1}:</label>
-            {[...new Array(TOTAL_LOTTO_NUMBER)].map(() => 
-              <input type="text" name={`lottoNumber${index + 1}`} style={{ width: '30px', 'margin-right': '10px' }}/>
-            )}
+            <LottoNumbersInput name={`lottoNumber${index + 1}`} description={`${LottoType.MANUAL} ${index + 1}`}/>
           </div>
         )}
         <button type="submit" onClick={ handleClickManualLottoInputsBtn }>확인</button>
