@@ -1,11 +1,12 @@
 import Lotto from "./Lotto";
 import LottoNumber from "./LottoNumber";
 import RandomUtils from "../utils/RandomUtils";
+import { LottoType } from "./LottoType";
 
 export default class AutoLottoGenerator {
 
   static generate (): Lotto {
-    return new Lotto(AutoLottoGenerator.makeRandomLottoNumbers());
+    return new Lotto(AutoLottoGenerator.makeRandomLottoNumbers(), LottoType.AUTO);
   }
 
   private static makeRandomLottoNumbers() {
@@ -16,6 +17,7 @@ export default class AutoLottoGenerator {
           lottoNumbers.push(randomLottoNumber);
         }
     }
+    
     return lottoNumbers.sort().map(lottoNumber => LottoNumber.of(lottoNumber));
   }
 }
