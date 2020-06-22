@@ -5,7 +5,8 @@ import { LottoType } from "./LottoType";
 export default class ManualLottoGenerator {
 
   static generate (lottoNumbers: number[]): Lotto {
-    const _lottoNumbers = lottoNumbers.sort().map(lottoNumber => LottoNumber.of(lottoNumber));
+    const _lottoNumbers = lottoNumbers.sort((a, b) => a - b)
+      .map(lottoNumber => LottoNumber.of(lottoNumber));
 
     return new Lotto(_lottoNumbers, LottoType.MANUAL);
   }
