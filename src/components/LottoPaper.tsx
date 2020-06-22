@@ -1,10 +1,15 @@
 import * as React from 'preact';
 import Lotto from '../domain/Lotto';
 
-const LottoPaper = (props: { lottos: Lotto[], winningLotto: Lotto }) => {
+const LottoPaper = (props: { lottos: Lotto[], winningLotto: Lotto, setError: Function }) => {
 
-  const handleCheckWinningLottoBtn = () => {
-    console.log(props.winningLotto);
+  const handleCheckWinningLottoBtn = (e: Event) => {
+    e.preventDefault();
+    try {
+      // TODO: 당첨 번호와 내 번호 비교하고 당첨 여부 확인하는 과정
+    } catch(err) {
+      props.setError(err.message);
+    }
   }
 
   return (

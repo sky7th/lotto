@@ -6,14 +6,14 @@ import ManualLottoTicket from '../domain/ManualLottoTicket';
 import LottoNumbersInput from './LottoNumbersInput';
 import { LottoType } from '../domain/LottoType';
 import LottoNumberUtils from '../utils/LottoNumberUtils';
+import ErrorMessage from './ErrorMessage';
 
-const LottoStore = (props: { lottos: Lotto[], setLottos: Function }) => {
+const LottoStore = (props: { lottos: Lotto[], setLottos: Function, setError: Function }) => {
 
   const [lottoAmount, setlottoAmount] = useState(0);
   const [doneSettingLottoAmount, setDoneSettingLottoAmount] = useState(false);
   const [manualLottoAmount, setManualLottoAmount] = useState(0);
   const [doneSettingManualLottoAmount, setDoneSettingManualLottoAmount] = useState(false);
-  // const [doneManualLottoNumbersList, setDoneManualLottoNumbersList] = useState(false);
 
   const handleChangeLottoAmount = (e: any): void => setlottoAmount(e.target.value);
   const handleChangeManualLottoAmount = (e: any): void => setManualLottoAmount(e.target.value);
@@ -33,9 +33,12 @@ const LottoStore = (props: { lottos: Lotto[], setLottos: Function }) => {
   }
 
   const handleClickManualLottoInputsBtn = (e: any): void => {
-    e.preventDefault();
-    const manualLottoNumbersListFromInputs = getManualLottoNumbersListFromInputs();
-    props.setLottos(generateLottos(manualLottoNumbersListFromInputs));
+    try {
+      const manualLottoNumbersListFromInputs = getManualLottoNumbersListFromInputs();
+      props.setLottos(generateLottos(manualLottoNumbersListFromInputs));
+    } catch (err) {
+      props.setError(err.message);
+    }
   }
 
   const getManualLottoNumbersListFromInputs = (): any[][] => {
