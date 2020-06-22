@@ -18,7 +18,13 @@ const LottoPaper = (props: { lottos: Lotto[], winningLotto: Lotto }) => {
           ))}
         </div>
       ))}
-      <button type="submit" onClick={handleCheckWinningLottoBtn}>당첨번호확인</button>
+      {props.winningLotto === null && (
+        <div>아직 당첨 번호 발표 전 입니다 !</div>
+      )}
+      {props.winningLotto !== null && (
+        <button type="submit" onClick={handleCheckWinningLottoBtn}>당첨 확인</button>
+      )}
+      
     </div>
   )
 }
