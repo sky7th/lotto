@@ -16,6 +16,7 @@ const LottoCompany = (props: { winningLotto: WinningLotto, setWinningLotto: Func
 
   const handleClickWinningLottoBtn = (e: any) => {
     e.preventDefault();
+    props.setError(false);
     try {
       const winningLottoNumbersFromInputs = LottoNumberUtils.getLottoNumbersFromInputs('winningLotto');
       ManualLottoTicket.of([winningLottoNumbersFromInputs]);
@@ -28,7 +29,7 @@ const LottoCompany = (props: { winningLotto: WinningLotto, setWinningLotto: Func
       props.setWinningLotto(new WinningLotto(winningLotto, bonusLottoNumber));
 
     } catch (err) {
-      props.setError(err.message);
+      props.setError(true, err.message);
     }
   }
 
@@ -38,7 +39,7 @@ const LottoCompany = (props: { winningLotto: WinningLotto, setWinningLotto: Func
       {props.winningLotto === null && (
         <div>
           <LottoNumbersInput name={'winningLotto'} description='로또 당첨 번호를 입력해주세요: ' />
-          <label htmlFor="bonusLottoNumber">보너스 숫자를 입력해주세요: </label>
+          <label htmlFor="bonusLottoNumber">보너스 번호를 입력해주세요: </label>
           <input type="text" name="bonusLottoNumber" style={{ width: '30px', 'margin-right': '10px' }}
             value={bonusLottoNumber} onChange={handleChangeBonusLottoNumber}></input>
           <button type="submit" onClick={handleClickWinningLottoBtn}>확인</button>

@@ -12,9 +12,9 @@ const App = () => {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const setError = (errorMessage: string): void => {
+  const setError = (state: boolean, errorMessage: string = ''): void => {
+    setIsError(state);
     setErrorMessage(errorMessage);
-    setIsError(true);
   }
 
   return (

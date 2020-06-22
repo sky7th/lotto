@@ -8,7 +8,7 @@ const LottoPaper = (props: { lottos: Lotto[], winningLotto: Lotto, setError: Fun
     try {
       // TODO: 당첨 번호와 내 번호 비교하고 당첨 여부 확인하는 과정
     } catch(err) {
-      props.setError(err.message);
+      props.setError(true, err.message);
     }
   }
 
@@ -27,7 +27,7 @@ const LottoPaper = (props: { lottos: Lotto[], winningLotto: Lotto, setError: Fun
         <div>아직 당첨 번호 발표 전 입니다 !</div>
       )}
       {props.winningLotto !== null && (
-        <button type="submit" onClick={handleCheckWinningLottoBtn}>당첨 확인</button>
+        <button type="submit" onClick={handleCheckWinningLottoBtn}>당첨 확인해보기</button>
       )}
       
     </div>

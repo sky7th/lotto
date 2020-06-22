@@ -1,12 +1,15 @@
 import * as React from 'preact';
-import { useState } from 'preact/hooks';
+import { useState, useEffect } from 'preact/hooks';
 import Lotto from '../domain/Lotto';
 import LottoGeneratingMachine from '../domain/LottoGeneratingMachine';
 import ManualLottoTicket from '../domain/ManualLottoTicket';
 import LottoNumbersInput from './LottoNumbersInput';
 import { LottoType } from '../domain/LottoType';
 import LottoNumberUtils from '../utils/LottoNumberUtils';
-import ErrorMessage from './ErrorMessage';
+import LottoAmountGreaterThanMaxError from '../error/LottoAmountGreaterThanMaxError';
+import LottoAmountLessThanMinError from '../error/LottoAmountLessThanMinError';
+import ManualLottoAmountGreaterThanMaxError from '../error/ManualLottoAmountGreaterThanMaxError';
+import ManualLottoAmountLessThanMinError from '../error/ManualLottoAmountLessThanMinError';
 
 const LottoStore = (props: { lottos: Lotto[], setLottos: Function, setError: Function }) => {
 
@@ -16,28 +19,55 @@ const LottoStore = (props: { lottos: Lotto[], setLottos: Function, setError: Fun
   const [doneSettingManualLottoAmount, setDoneSettingManualLottoAmount] = useState(false);
 
   const handleChangeLottoAmount = (e: any): void => setlottoAmount(e.target.value);
+
   const handleChangeManualLottoAmount = (e: any): void => setManualLottoAmount(e.target.value);
 
   const handleClickLottoAmountBtn = (e: any): void => {
     e.preventDefault();
-    setDoneSettingLottoAmount(true)
+    props.setError(false);
+    try {
+      if (lottoAmount < Lotto.MIN_TO_PURCHASE) {
+        throw new LottoAmountLessThanMinError(lottoAmount);
+      }
+      if (lottoAmount > Lotto.MAX_TO_PURCHASE) {
+        throw new LottoAmountGreaterThanMaxError(lottoAmount);
+      }
+      setDoneSettingLottoAmount(true)
+    } catch(err) {
+      props.setError(true, err.message);
+    }
   }
 
   const handleClickManualLottoAmountBtn = (e: any): void => {
     e.preventDefault();
-    if (manualLottoAmount === 0) {
-      props.setLottos(generateLottos([]));
-      return;
+    props.setError(false);
+    try {
+      if (manualLottoAmount < ManualLottoAmountLessThanMinError.NO_MANUAL_LOTTO) {
+        throw new ManualLottoAmountLessThanMinError(manualLottoAmount);
+      }
+      if (manualLottoAmount > lottoAmount) {
+        throw new ManualLottoAmountGreaterThanMaxError(lottoAmount, manualLottoAmount);
+      }
+      if (manualLottoAmount === 0) {
+        props.setLottos(generateLottos([]));
+        return;
+      }
+      setDoneSettingManualLottoAmount(true);
+
+    } catch (err) {
+      props.setError(true, err.message);
     }
-    setDoneSettingManualLottoAmount(true)
   }
 
   const handleClickManualLottoInputsBtn = (e: any): void => {
+    e.preventDefault();
+    props.setError(false);
     try {
       const manualLottoNumbersListFromInputs = getManualLottoNumbersListFromInputs();
       props.setLottos(generateLottos(manualLottoNumbersListFromInputs));
+
     } catch (err) {
-      props.setError(err.message);
+      props.setError(true, err.message);
     }
   }
 
