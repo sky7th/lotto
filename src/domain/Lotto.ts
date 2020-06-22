@@ -20,4 +20,9 @@ export default class Lotto {
   get lottoType() {
     return this._lottoType;
   }
+
+  includes(lottoNumber: LottoNumber) {
+    return this._lottoNumbers.map(lottoNumber => lottoNumber.number)
+      .includes(lottoNumber.number);
+  }
 }

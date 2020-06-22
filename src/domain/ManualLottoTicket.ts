@@ -17,7 +17,6 @@ export default class ManualLottoTicket {
     if (lottoNumbersList.length === ManualLottoTicket.ZERO) {
       return new ManualLottoTicket(ManualLottoTicket.EMPTY_MANUAL_LOTTOS);
     }
-    
     lottoNumbersList.forEach((lottoNumbers, index) => {
       ManualLottoTicket.checkEmptyNumber(lottoNumbers, index);
       ManualLottoTicket.checkDuplicateNumber(lottoNumbers, index);

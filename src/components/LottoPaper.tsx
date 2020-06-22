@@ -1,7 +1,12 @@
 import * as React from 'preact';
 import Lotto from '../domain/Lotto';
 
-const LottoPaper = (props: { lottos: Lotto[] }) => {
+const LottoPaper = (props: { lottos: Lotto[], winningLotto: Lotto }) => {
+
+  const handleCheckWinningLottoBtn = () => {
+    console.log(props.winningLotto);
+  }
+
   return (
     <div>
       <div>-----내 로또 용지-----</div>
@@ -13,6 +18,7 @@ const LottoPaper = (props: { lottos: Lotto[] }) => {
           ))}
         </div>
       ))}
+      <button type="submit" onClick={handleCheckWinningLottoBtn}>당첨번호확인</button>
     </div>
   )
 }

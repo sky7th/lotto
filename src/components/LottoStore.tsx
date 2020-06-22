@@ -40,7 +40,7 @@ const LottoStore = (props: { lottos: Lotto[], setLottos: Function }) => {
 
   const getManualLottoNumbersListFromInputs = (): any[][] => {
     return [...Array(Number(manualLottoAmount))].map((n, index) =>
-      LottoNumberUtils.getLottoNumbersFromInputs(`input[name=lottoNumber${index + 1}]`))
+      LottoNumberUtils.getLottoNumbersFromInputs(`lottoNumber${index + 1}`))
   }
 
   const generateLottos = (manualLottoNumbersList: number[][]) => {
