@@ -47,11 +47,11 @@ const LottoCompany = (props: { winningLotto: WinningLotto, setWinningLotto: Func
       )}
       {props.winningLotto !== null && (
         <div>
-          {props.winningLotto.winningLotto.map(lottoNumber => (
+          {props.winningLotto.lottoNumbers.map(lottoNumber => (
             <span style={{ 'margin-right': '10px' }}>{lottoNumber.number}</span>
           ))}
           <span>보너스: </span>
-          <span>{props.winningLotto.bonusNumber}</span>
+          <span>{props.winningLotto.number}</span>
         </div>
       )}
     </div>

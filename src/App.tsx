@@ -23,7 +23,7 @@ const App = () => {
         <LottoStore lottos={ lottos } setLottos={ setLottos } setError={ setError } />
       )}
       {lottos.length > 0 && (
-        <LottoPaper lottos={ lottos } winningLotto={ winningLotto } setError={ setError } />
+        <LottoPaper lottos={ lottos } setLottos={ setLottos } winningLotto={ winningLotto } setError={ setError } />
       )}
       <br/>
       {lottos.length > 0 && (

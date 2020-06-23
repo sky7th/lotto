@@ -71,7 +71,7 @@ const LottoStore = (props: { lottos: Lotto[], setLottos: Function, setError: Fun
     }
   }
 
-  const getManualLottoNumbersListFromInputs = (): any[][] => {
+  const getManualLottoNumbersListFromInputs = (): number[][] => {
     return [...Array(Number(manualLottoAmount))].map((n, index) =>
       LottoNumberUtils.getLottoNumbersFromInputs(`lottoNumber${index + 1}`))
   }

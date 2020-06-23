@@ -16,10 +16,18 @@ export default class WinningLotto {
   }
 
   get winningLotto() {
+    return this._winningLotto;
+  }
+
+  get lottoNumbers() {
     return this._winningLotto.lottoNumbers;
   }
 
-  get bonusNumber() {
+  get number() {
     return this._bonusNumber.number;
+  }
+
+  get bonusNumber() {
+    return this._bonusNumber;
   }
 }

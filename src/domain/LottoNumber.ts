@@ -7,9 +7,11 @@ export default class LottoNumber {
   public static readonly MAX: number = 45;
 
   private _number: number;
+  private _isWin: boolean;
 
-  private constructor(number: number) {
+  constructor(number: number) {
     this._number = number;
+    this._isWin = false;
   }
 
   static of(number: number) {
@@ -25,5 +27,13 @@ export default class LottoNumber {
 
   get number() {
     return this._number;
+  }
+
+  get isWin() {
+    return this._isWin;
+  }
+
+  win() {
+    this._isWin = true;
   }
 }
