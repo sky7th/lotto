@@ -9,22 +9,26 @@ export default class WinningLotto {
 
   constructor(winningLotto: Lotto, bonusNumber: LottoNumber) {
     if (winningLotto.includes(bonusNumber)) {
-      throw new BonusNumberDuplicateWinningLottoNumberError(bonusNumber.number);
+      throw new BonusNumberDuplicateWinningLottoNumberError(bonusNumber);
     }
     this._winningLotto = winningLotto;
     this._bonusNumber = bonusNumber;
   }
 
-  get winningLotto() {
-    return this._winningLotto;
+  matchForWinningLottoNumber(targetLotto: Lotto) {
+    targetLotto.winLottoNumbers(this._winningLotto, this._bonusNumber);
+  }
+
+  isMatchedBonus(targetLotto: Lotto) {
+    let matchedBonus: boolean = false;
+    if (targetLotto.countOfWinLottoNumbers === Lotto.TOTAL_LOTTO_NUMBER) {
+      matchedBonus = targetLotto.includes(this._bonusNumber);
+    }
+    return matchedBonus;
   }
 
   get lottoNumbers() {
     return this._winningLotto.lottoNumbers;
-  }
-
-  get number() {
-    return this._bonusNumber.number;
   }
 
   get bonusNumber() {

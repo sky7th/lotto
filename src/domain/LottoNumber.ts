@@ -25,15 +25,19 @@ export default class LottoNumber {
     return new LottoNumber(number);
   }
 
+  win() {
+    this._isWin = true;
+  }
+
+  equals(lottoNumber: LottoNumber) {
+    return this._number === lottoNumber._number;
+  }
+
   get number() {
     return this._number;
   }
 
   get isWin() {
     return this._isWin;
-  }
-
-  win() {
-    this._isWin = true;
   }
 }

@@ -51,7 +51,7 @@ const LottoCompany = (props: { winningLotto: WinningLotto, setWinningLotto: Func
             <span style={{ 'margin-right': '10px' }}>{lottoNumber.number}</span>
           ))}
           <span>보너스: </span>
-          <span>{props.winningLotto.number}</span>
+          <span>{props.winningLotto.bonusNumber.number}</span>
         </div>
       )}
     </div>

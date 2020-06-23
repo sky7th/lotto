@@ -14,6 +14,22 @@ export default class Lotto {
     private _lottoPrize: LottoPrize = LottoPrize.READY) {
   }
 
+  includes(comparisonTarget: LottoNumber) {
+    return this._lottoNumbers.some(lottoNumber => lottoNumber.equals(comparisonTarget));
+  }
+
+  winLottoNumbers(targetLotto: Lotto, targetBonusNumber: LottoNumber) {
+    this.lottoNumbers.forEach(lottoNumber => {
+      if (targetLotto.includes(lottoNumber) || lottoNumber.equals(targetBonusNumber)) {
+        lottoNumber.win();
+      }
+    });
+  }
+
+  get countOfWinLottoNumbers(): number {
+    return this._lottoNumbers.filter(lottoNumber => lottoNumber.isWin).length;
+  }
+
   get lottoNumbers() {
     return this._lottoNumbers;
   }
@@ -28,21 +44,5 @@ export default class Lotto {
 
   set lottoPrize(lottoPrize: LottoPrize) {
     this._lottoPrize = lottoPrize;
-  }
-
-  includes(lottoNumber: LottoNumber) {
-    return this._lottoNumbers.map(lottoNumber => lottoNumber.number)
-      .includes(lottoNumber.number);
-  }
-
-  get winLottoNumbers(): LottoNumber[] {
-    const winLottoNumbers:LottoNumber[] = [];
-    this._lottoNumbers.forEach(lottoNumber => {
-      if (lottoNumber.isWin) {
-        winLottoNumbers.push(lottoNumber);
-      }
-    });
-
-    return winLottoNumbers;
   }
 }

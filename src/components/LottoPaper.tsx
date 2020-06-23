@@ -18,11 +18,7 @@ const LottoPaper = (props: {
   const handleClickLottoResultBtn = (e: Event) => {
     e.preventDefault();
     try {
-      const resultLottos = props.lottos.map(lotto => {
-        LottoCheckingMachine.checkSameNumber(lotto, props.winningLotto);
-        LottoCheckingMachine.setLottoPrize(lotto, props.winningLotto);
-        return lotto;
-      });
+      const resultLottos = props.lottos.map(lotto => LottoCheckingMachine.match(lotto, props.winningLotto));
       props.setLottos(resultLottos);
       setDoneCheckLottoResult(true);
       

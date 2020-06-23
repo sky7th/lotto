@@ -4,20 +4,12 @@ import { LottoPrize } from "./LottoPrize";
 
 export default class LottoCheckingMachine {
 
-  static checkSameNumber(lotto: Lotto, winningLotto: WinningLotto) {
-    lotto.lottoNumbers.forEach(lottoNumber => {
-      if (winningLotto.winningLotto.includes(lottoNumber) || lottoNumber.number === winningLotto.number) {
-        lottoNumber.win();
-      }
-    });
-  }
-
-  static setLottoPrize(lotto: Lotto, winningLotto: WinningLotto) {
-    let matchedBonus: boolean = false;
-    if (lotto.winLottoNumbers.length === Lotto.TOTAL_LOTTO_NUMBER) {
-      matchedBonus = lotto.lottoNumbers.some(lottoNumber => lottoNumber.number === winningLotto.number);
-    }
-    lotto.lottoPrize = LottoPrize.valueOf(lotto.winLottoNumbers.length, matchedBonus);
+  static match(lotto: Lotto, winningLotto: WinningLotto) {
+    winningLotto.matchForWinningLottoNumber(lotto);
+    const matchedBonus: boolean = winningLotto.isMatchedBonus(lotto);
+    lotto.lottoPrize = LottoPrize.valueOf(lotto.countOfWinLottoNumbers, matchedBonus);
+    
+    return lotto;
   }
 
   static calculateTotalLottoPrize(lottos: Lotto[]) {
